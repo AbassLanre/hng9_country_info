@@ -81,7 +81,7 @@ class Country {
     unMember = json['unMember'] as bool?;
     currencies = (json['currencies'] as Map<String,dynamic>?) != null ? Currencies.fromJson(json['currencies'] as Map<String,dynamic>) : null;
     idd = (json['idd'] as Map<String,dynamic>?) != null ? Idd.fromJson(json['idd'] as Map<String,dynamic>) : null;
-    capital = (json['capital'] as List?)?.map((dynamic e) => e as String).toList();
+    capital = (json['capital'] as List?)?.map((dynamic e) => e as String).toList().length ==0 ?json['capital'] = null:(json['capital'] as List?)?.map((dynamic e) => e as String).toList();
     altSpellings = (json['altSpellings'] as List?)?.map((dynamic e) => e as String).toList();
     region = json['region'] as String?;
     subregion = json['subregion'] as String?;
