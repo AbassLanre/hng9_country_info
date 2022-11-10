@@ -12,8 +12,8 @@ Color stateTextColor = currentTheme.currentTheme() != ThemeMode.dark
     ? const Color(0xff667085)
     : const Color(0xff98a2b3);
 Color searchBarColor = currentTheme.currentTheme() != ThemeMode.dark
-    ? const Color(0xff98a2b3)
-    : const Color(0xfff2f4f7);
+    ? const Color(0xfff2f4f7)
+    : const Color(0xff98a2b3);
 
 TextStyle searchTextStyle = TextStyle(
   fontSize: 16.sp, fontWeight: FontWeight.w300,color: searchTextColor

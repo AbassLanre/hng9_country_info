@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
                   fontFamily: 'Axiforma',
                   color: Colors.black)),),
           darkTheme: ThemeData(
-            colorSchemeSeed: const Color(0xff000F24),
+            scaffoldBackgroundColor:const Color(0xff000F24) ,
               brightness: Brightness.dark,
               fontFamily: 'Axiforma'),
           debugShowCheckedModeBanner: false,

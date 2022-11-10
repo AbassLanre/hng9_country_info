@@ -24,9 +24,7 @@ class _SearchBarState extends State<SearchBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 8.w,),
-          Icon(Icons.search,size: 16.r,),
-          const Expanded(child:  SizedBox(width: 16,)),
+          Expanded(child: Icon(Icons.search,size: 16.r,color: searchTextColor,)),
           Expanded(
             child: TextField(
               controller: searchCountryController,
