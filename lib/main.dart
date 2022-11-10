@@ -20,7 +20,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     currentTheme.addListener(() {
-      print('Changes');
       setState(() {});
     });
   }
@@ -35,14 +34,10 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           theme: ThemeData(
               brightness: Brightness.light,
-              fontFamily: 'Axiforma').copyWith(appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.white,
-              actionsIconTheme: IconThemeData(color: Colors.black),
-              titleTextStyle: TextStyle(
-                  fontFamily: 'Axiforma',
-                  color: Colors.black)),),
+              fontFamily: 'Axiforma'),
           darkTheme: ThemeData(
             scaffoldBackgroundColor:const Color(0xff000F24) ,
+
               brightness: Brightness.dark,
               fontFamily: 'Axiforma'),
           debugShowCheckedModeBanner: false,

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hng9_country_info/config.dart';
 
+
+
+
+
 Color searchTextColor = currentTheme.currentTheme() != ThemeMode.dark
     ? const Color(0xff667085)
     : const Color(0xffeaecf0);
