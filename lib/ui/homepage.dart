@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hng9_country_info/config.dart';
 import 'package:hng9_country_info/constants/consts.dart';
+import 'package:hng9_country_info/main.dart';
 import 'package:hng9_country_info/model/country_model.dart';
 import 'package:hng9_country_info/network/network_enum.dart';
 import 'package:hng9_country_info/network/network_helper.dart';
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 24.h),
           child: Consumer<CountryProvider>(
             builder: (_,provider,body){
+              provider.setCountryData(CountryRespository().getData());
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -122,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                                 size: 19.r,
                               ),
                               Text(
-                                'Filter',
+                                strings.get(1),
                                 style: TextStyle(fontSize: 12.sp),
                               ),
                               SizedBox(

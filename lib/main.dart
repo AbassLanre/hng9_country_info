@@ -1,12 +1,24 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hng9_country_info/config.dart';
+import 'package:hng9_country_info/constants/lang.dart';
 import 'package:hng9_country_info/provider/countryProvider.dart';
-import 'package:hng9_country_info/repository/countryRepository.dart';
 import 'package:hng9_country_info/ui/homepage.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Lang strings = Lang();
+
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  int? langu = pref.getInt('langu');
+  if (langu != null) {
+    strings.setLang(langu);
+  } else {
+    strings.setLang(Lang.francaise); // set default language - English
+  }
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<CountryProvider>(create: (_)=>CountryProvider()),
@@ -34,8 +46,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<CountryProvider>(context).setCountryData(CountryRespository().getData());
-
     return ScreenUtilInit(
       designSize: const Size(428, 926),
       minTextAdapt: true,

@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hng9_country_info/main.dart';
 import 'package:hng9_country_info/model/country_model.dart';
 import 'package:hng9_country_info/provider/countryProvider.dart';
 import 'package:hng9_country_info/widgets/rowDetails.dart';
@@ -90,25 +91,25 @@ class _CountryInfoPageState extends State<CountryInfoPage> {
                         )
                     ),
                     SizedBox(height: 24.h,),
-                    RowDetails(name: 'Population', value: widget.country!.population!.toString()),
-                    RowDetails(name: 'Region', value: widget.country!.region!.toString()),
-                    RowDetails(name: 'Capital', value: widget.country!.capital?.first ?? '-----'),
-                    RowDetails(name: 'Motto', value: 'Virtus unita fortior'),
+                    RowDetails(name: strings.get(2), value: widget.country!.population!.toString()),
+                    RowDetails(name: strings.get(3), value: widget.country!.region!.toString()),
+                    RowDetails(name: strings.get(4), value: widget.country!.capital?.first ?? '-----'),
+                    RowDetails(name: strings.get(5), value: 'Virtus unita fortior'),
                     SizedBox(height: 24.h,),
-                    RowDetails(name: 'Official Language', value: widget.country!.languages!.eng ??'-----'),
-                    RowDetails(name: 'Ethnic group', value: widget.country!.demonyms!.eng!.f ?? '-----'),
-                    RowDetails(name: 'Religion', value: 'Christianity'),
-                    RowDetails(name: 'Government', value: 'Parliamentary democracy'),
+                    RowDetails(name: strings.get(6), value: widget.country!.languages!.eng ??'-----'),
+                    RowDetails(name: strings.get(7), value: widget.country!.demonyms!.eng!.f ?? '-----'),
+                    RowDetails(name: strings.get(8), value: 'Christianity'),
+                    RowDetails(name: strings.get(9), value: 'Parliamentary democracy'),
                     SizedBox(height: 24.h,),
-                    RowDetails(name: 'Independence', value: '8th September, 1911'),
-                    RowDetails(name: 'Area', value: widget.country?.area.toString() ?? '-----'),
-                    RowDetails(name: 'Currency', value: widget.country!.currencies!.bBD?.name ?? 'Euro'),
+                    RowDetails(name: strings.get(10), value: '8th September, 1911'),
+                    RowDetails(name: strings.get(11), value: widget.country?.area.toString() ?? '-----'),
+                    RowDetails(name: strings.get(12), value: widget.country!.currencies!.bBD?.name ?? 'Euro'),
                     RowDetails(name: 'GDP', value: "US\$3.400 billion"),
                     SizedBox(height: 24.h,),
-                    RowDetails(name: 'Time zone', value: widget.country!.timezones?.first ?? 'UTC+01:00'),
-                    RowDetails(name: 'Date Format', value: widget.country!.postalCode?.format ?? 'dd/mm/yyyy'),
-                    RowDetails(name: 'Dialling Code', value: '${widget.country!.idd!.root}${widget.country!.idd!.suffixes!.first}' ),
-                    RowDetails(name: 'Driving Side', value: widget.country!.car?.side ?? 'right'),
+                    RowDetails(name: strings.get(13), value: widget.country!.timezones?.first ?? 'UTC+01:00'),
+                    RowDetails(name: strings.get(14), value: widget.country!.postalCode?.format ?? 'dd/mm/yyyy'),
+                    RowDetails(name: strings.get(15), value: '${widget.country!.idd!.root}${widget.country!.idd!.suffixes!.first}' ),
+                    RowDetails(name: strings.get(16), value: widget.country!.car?.side ?? 'right'),
 
                   ],
                 ),

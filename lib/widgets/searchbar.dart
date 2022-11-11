@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hng9_country_info/constants/styles.dart';
+import 'package:hng9_country_info/main.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _SearchBarState extends State<SearchBar> {
               child: TextField(
                 controller: searchCountryController,
                 decoration: InputDecoration(
-                  hintText: 'Search country',
+                  hintText: strings.get(0),
                   hintStyle: searchTextStyle,
                   border: InputBorder.none
                 ),
