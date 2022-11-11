@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hng9_country_info/config.dart';
+import 'package:hng9_country_info/provider/countryProvider.dart';
+import 'package:hng9_country_info/repository/countryRepository.dart';
 import 'package:hng9_country_info/ui/homepage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CountryProvider>(create: (_)=>CountryProvider()),
+      ],
+      child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -22,10 +29,13 @@ class _MyAppState extends State<MyApp> {
     currentTheme.addListener(() {
       setState(() {});
     });
+
   }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<CountryProvider>(context).setCountryData(CountryRespository().getData());
+
     return ScreenUtilInit(
       designSize: const Size(428, 926),
       minTextAdapt: true,
