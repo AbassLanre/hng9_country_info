@@ -29,7 +29,16 @@ class CountryRespository{
         });
 
   }
-  List<Country> _listOfCountriesFromJson(json) {
+  // Future<List<Country>?> fetchSearchData(String query) async {
+  //
+  //   return getData().then((value) => value!.map((e) => Country.fromJson(e)).where((country){
+  //     final countryV = country.name!.common!.toLowerCase();
+  //     final searchValue = query.toLowerCase();
+  //     return countryV.contains(searchValue);
+  //   }).toList());
+  //
+  // }
+    List<Country> _listOfCountriesFromJson(json) {
     List<Country> countryList = (json as List)
         .map((e) => Country.fromJson(e as Map<String, dynamic>))
         .toList();
