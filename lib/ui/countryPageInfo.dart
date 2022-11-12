@@ -50,8 +50,8 @@ class _CountryInfoPageState extends State<CountryInfoPage> {
                             onTap: (){
                               Navigator.pop(context);
                             },
-                            child: Icon(Icons.arrow_back_outlined, size: 30.r,)),
-                        Center(child: Text(widget.country!.name!.common! ,style: TextStyle(fontSize: 20.sp),)),
+                            child: Icon(Icons.arrow_back_outlined, size: 35.r,)),
+                        Center(child: Text(widget.country!.name!.common! ,style: TextStyle(fontSize: 24.sp),)),
                         SizedBox(width: 30.w,)
                       ],
                     ),

@@ -29,6 +29,7 @@ class HomePage extends StatefulWidget {
 }
 
 bool darkMode = true;
+
 class Debouncer {
   int? milliseconds;
   VoidCallback? action;
@@ -48,11 +49,18 @@ class Debouncer {
 class _HomePageState extends State<HomePage> {
   TextEditingController? searchCountryController = TextEditingController();
   final _debouncer = Debouncer();
-  List<Country> temp =[];
-  List<Country> country=[];
-  int langVal =0;
+  List<Country> temp = [];
+  List<Country> country = [];
+  int langVal = 0;
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((t) {
+      Provider.of<CountryProvider>(context,listen: false).setCountryData(CountryRespository().getData());
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     List alpha = [
@@ -90,7 +98,7 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 24.h),
           child: Consumer<CountryProvider>(
             builder: (_, provider, body) {
-              provider.setCountryData(CountryRespository().getData());
+
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -118,48 +126,53 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // const SearchBar(),
                     /// searchbar
-                Container(
-                  height: 48.h,
-                  width: 380.w,
-                  decoration: BoxDecoration(
-                    color: searchBarColor,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(width: 16.w),
-                      Icon(Icons.search,size: 16.r,color: searchTextColor,),
-                      Expanded(child:  SizedBox(width: 16.w)),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: TextField(
-                            controller: searchCountryController,
-                            decoration: InputDecoration(
-                                hintText: strings.get(0),
-                                hintStyle: searchTextStyle,
-                                border: InputBorder.none
-                            ),
-                            onChanged: (string) {
-                              _debouncer.run(() {
-                                setState(() {
-                                  country = temp
-                                      .where(
-                                        (u) => (u.name!.common!.toLowerCase().contains(
-                                      string.toLowerCase(),
-                                    )),
-                                  ).toList();
-                                });
-                              });
-                            },
-
-                          ),
-                        ),
+                    Container(
+                      height: 48.h,
+                      width: 380.w,
+                      decoration: BoxDecoration(
+                        color: searchBarColor,
                       ),
-                      Expanded(child:  SizedBox(width: 16.w))
-                    ],
-                  ),
-                ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(width: 16.w),
+                          Icon(
+                            Icons.search,
+                            size: 16.r,
+                            color: searchTextColor,
+                          ),
+                          Expanded(child: SizedBox(width: 16.w)),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: TextField(
+                                controller: searchCountryController,
+                                decoration: InputDecoration(
+                                    hintText: strings.get(0),
+                                    hintStyle: searchTextStyle,
+                                    border: InputBorder.none),
+                                onChanged: (string) {
+                                  _debouncer.run(() {
+                                    setState(() {
+                                      country = temp
+                                          .where(
+                                            (u) => (u.name!.common!
+                                                .toLowerCase()
+                                                .contains(
+                                                  string.toLowerCase(),
+                                                )),
+                                          )
+                                          .toList();
+                                    });
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          Expanded(child: SizedBox(width: 16.w))
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 16.h,
                     ),
@@ -169,42 +182,58 @@ class _HomePageState extends State<HomePage> {
                         /// Language
                         InkWell(
                           onTap: () => showModalBottomSheet(
-                            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
                             context: context,
                             builder: (context) {
                               return SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 24.h,),
+                                    SizedBox(
+                                      height: 24.h,
+                                    ),
                                     Text('Languages'),
                                     ListView.builder(
                                         physics: const BouncingScrollPhysics(),
                                         itemCount: Lang().langData.length,
                                         shrinkWrap: true,
-                                        itemBuilder: (_,index){
-                                      return Padding(
-                                        padding: EdgeInsets.only(left: 24.w,right: 24.w,top: 24.h),
-                                        child: ListTile(
-                                          title: Text(Lang().langData[index].name!),
-                                          trailing: Radio<int>(
-                                            activeColor: Theme.of(context).primaryColor,
-                                            value: Lang().langData[index].id!,
-                                            groupValue:langVal,
-                                            onChanged: (int? value) async{
-                                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                                setState(() {
-                                                  langVal =value! ;
-                                                  prefs.setInt('langu', index+1);
-                                                  strings.setLang(index+1);
-                                                });
-                                            },),
-                                        )
-                                      );
-                                    }),
+                                        itemBuilder: (_, index) {
+                                          return Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 24.w,
+                                                  right: 24.w),
+                                              child: ListTile(
+                                                title: Text(Lang()
+                                                    .langData[index]
+                                                    .name!),
+                                                trailing: Radio<int>(
+                                                  activeColor: Theme.of(context)
+                                                      .primaryColor,
+                                                  value: Lang()
+                                                      .langData[index]
+                                                      .id!,
+                                                  groupValue: langVal,
+                                                  onChanged:
+                                                      (int? value) async {
+                                                    SharedPreferences prefs =
+                                                        await SharedPreferences
+                                                            .getInstance();
+                                                    setState(() {
+                                                      langVal = value!;
+                                                      prefs.setInt(
+                                                          'langu', index + 1);
+                                                      strings
+                                                          .setLang(index + 1);
+                                                    });
+                                                  },
+                                                ),
+                                              ));
+                                        }),
                                   ],
                                 ),
                               );
-                            },),
+                            },
+                          ),
                           child: Container(
                             height: 40.h,
                             width: 73.w,
@@ -267,6 +296,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 16.h,
                     ),
+
                     /// country list
                     FutureBuilder(
                       future: provider.getCountryData,
@@ -274,8 +304,8 @@ class _HomePageState extends State<HomePage> {
                         if (snapshot.connectionState == ConnectionState.done &&
                             snapshot.hasData) {
                           temp = snapshot.data as List<Country>;
-                          if(country.isEmpty){
-                            country =temp;
+                          if (country.isEmpty) {
+                            country = temp;
                           }
                           return ListView.builder(
                             shrinkWrap: true,
