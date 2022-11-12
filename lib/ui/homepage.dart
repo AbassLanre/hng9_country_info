@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hng9_country_info/config.dart';
 import 'package:hng9_country_info/constants/consts.dart';
@@ -53,14 +54,39 @@ class _HomePageState extends State<HomePage> {
   List<Country> country = [];
   int langVal = 0;
 
+  List<S2Choice<dynamic>> continents = [
+    S2Choice(value: 1, title: 'Africa'),
+    S2Choice(value: 2, title: 'Antarctica'),
+    S2Choice(value: 3, title: 'Asia'),
+    S2Choice(value: 4, title: 'Australia'),
+    S2Choice(value: 5, title: 'Europe'),
+    S2Choice(value: 6, title: 'North America'),
+    S2Choice(value: 7, title: 'South America'),
+  ];
+
+  List<S2Choice<dynamic>> timeZone = [
+    S2Choice(value: 1, title: 'UTC+01:00'),
+    S2Choice(value: 2, title: 'UTC+02:00'),
+    S2Choice(value: 3, title: 'UTC+03:00'),
+    S2Choice(value: 4, title: 'UTC+04:00'),
+    S2Choice(value: 5, title: 'UTC+05:00'),
+    S2Choice(value: 6, title: 'UTC+06:00'),
+    S2Choice(value: 7, title: 'UTC+07:00'),
+    S2Choice(value: 8, title: 'UTC-01:00'),
+  ];
+  List<int> value = [2];
+  List<S2Choice> options = [];
+
   @override
   void initState() {
     // TODO: implement initState
     WidgetsBinding.instance.addPostFrameCallback((t) {
-      Provider.of<CountryProvider>(context,listen: false).setCountryData(CountryRespository().getData());
+      Provider.of<CountryProvider>(context, listen: false)
+          .setCountryData(CountryRespository().getData());
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     List alpha = [
@@ -91,6 +117,7 @@ class _HomePageState extends State<HomePage> {
       'Y',
       'Z'
     ];
+
     List added = [];
     return SafeArea(
       child: Scaffold(
@@ -98,7 +125,6 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 24.h),
           child: Consumer<CountryProvider>(
             builder: (_, provider, body) {
-
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -130,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                       height: 48.h,
                       width: 380.w,
                       decoration: BoxDecoration(
-                        color: searchBarColor,
+                        color: Theme.of(context).highlightColor,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                           Icon(
                             Icons.search,
                             size: 16.r,
-                            color: searchTextColor,
+                            color: Theme.of(context).hintColor,
                           ),
                           Expanded(child: SizedBox(width: 16.w)),
                           Expanded(
@@ -149,7 +175,8 @@ class _HomePageState extends State<HomePage> {
                                 controller: searchCountryController,
                                 decoration: InputDecoration(
                                     hintText: strings.get(0),
-                                    hintStyle: searchTextStyle,
+                                    hintStyle: searchTextStyle.copyWith(
+                                        color: Theme.of(context).hintColor),
                                     border: InputBorder.none),
                                 onChanged: (string) {
                                   _debouncer.run(() {
@@ -192,7 +219,10 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(
                                       height: 24.h,
                                     ),
-                                    Text(strings.get(17)),
+                                    Text(
+                                      strings.get(17),
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
                                     ListView.builder(
                                         physics: const BouncingScrollPhysics(),
                                         itemCount: Lang().langData.length,
@@ -200,8 +230,7 @@ class _HomePageState extends State<HomePage> {
                                         itemBuilder: (_, index) {
                                           return Padding(
                                               padding: EdgeInsets.only(
-                                                  left: 24.w,
-                                                  right: 24.w),
+                                                  left: 24.w, right: 24.w),
                                               child: ListTile(
                                                 title: Text(Lang()
                                                     .langData[index]
@@ -225,6 +254,7 @@ class _HomePageState extends State<HomePage> {
                                                       strings
                                                           .setLang(index + 1);
                                                     });
+                                                    Navigator.pop(context);
                                                   },
                                                 ),
                                               ));
@@ -238,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                             height: 40.h,
                             width: 73.w,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.r),
+                                borderRadius: BorderRadius.circular(5.r),
                                 border:
                                     Border.all(color: const Color(0xffA9B8D4))),
                             child: Row(
@@ -253,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text(
                                   'EN',
-                                  style: TextStyle(fontSize: 12.sp),
+                                  style: TextStyle(fontSize: 14.sp),
                                 ),
                                 SizedBox(
                                   width: 5.w,
@@ -267,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                         InkWell(
                           onTap: () => showModalBottomSheet(
                             backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
                             context: context,
                             builder: (context) {
                               return SingleChildScrollView(
@@ -276,54 +306,36 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(
                                       height: 24.h,
                                     ),
-                                    Text(strings.get(1)),
-                                    ListView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        itemCount: Lang().langData.length,
-                                        shrinkWrap: true,
-                                        itemBuilder: (_, index) {
-                                          return Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 24.w,
-                                                  right: 24.w),
-                                              child: ListTile(
-                                                title: Text(Lang()
-                                                    .langData[index]
-                                                    .name!),
-                                                trailing: Radio<int>(
-                                                  activeColor: Theme.of(context)
-                                                      .primaryColor,
-                                                  value: Lang()
-                                                      .langData[index]
-                                                      .id!,
-                                                  groupValue: langVal,
-                                                  onChanged:
-                                                      (int? value) async {
-                                                    SharedPreferences prefs =
-                                                    await SharedPreferences
-                                                        .getInstance();
-                                                    setState(() {
-                                                      langVal = value!;
-                                                      prefs.setInt(
-                                                          'langu', index + 1);
-                                                      strings
-                                                          .setLang(index + 1);
-                                                    });
-                                                  },
-                                                ),
-                                              ));
-                                        }),
+                                    Text(
+                                      strings.get(1),
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
+                                    SmartSelect.multiple(
+                                      choiceItems: continents,
+                                      choiceLoader: null,
+                                      title: strings.get(18),
+                                      selectedValue: value,
+                                      selectedChoice: options,
+                                      onChange: (state) {},
+                                    ),
+                                    SmartSelect.multiple(
+                                      choiceItems: timeZone,
+                                      choiceLoader: null,
+                                      title: strings.get(13),
+                                      selectedValue: value,
+                                      selectedChoice: options,
+                                      onChange: (state) {},
+                                    )
                                   ],
                                 ),
                               );
                             },
                           ),
-
                           child: Container(
                             height: 40.h,
                             width: 86.w,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.r),
+                                borderRadius: BorderRadius.circular(5.r),
                                 border:
                                     Border.all(color: const Color(0xffA9B8D4))),
                             child: Row(
@@ -338,7 +350,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text(
                                   strings.get(1),
-                                  style: TextStyle(fontSize: 12.sp),
+                                  style: TextStyle(fontSize: 14.sp),
                                 ),
                                 SizedBox(
                                   width: 5.w,

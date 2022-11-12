@@ -21,6 +21,7 @@ In order to produce a great design interface and responsiveness, the following p
 - provider: used the provider state management technique to allow data to be accessible anywhere in the app
 - carousel_slider: this was to create a smooth and beautiful widget sliding 
 - modal_bottom_sheet: this was used to create a bottom sheet to hold supplementary screens while still on a main screen
+- flutter_awesome_select: this was used to simplify the filter UI creation
 
 The *font* used was 'Axiforma', as this was recommended to be used by the design lead. The lib folder was divided into 6 subfolders to separate
 code concerns and allow for easy future additions/modifications.
@@ -66,5 +67,5 @@ Given more time i would have loved to add the following:
 
 # Link to App
 
-- Appetize - [Link]()
-- Google drive - [Link]()
+- Appetize - [Link](https://appetize.io/app/kxjlqu7emvxewtzc5jrpwwq6ya?device=pixel4&osVersion=11.0&scale=75)
+- Google drive - [Link](https://drive.google.com/file/d/1fX7SvmvNk9yEzAtKXBpvx__UIg8F7Al-/view?usp=share_link)

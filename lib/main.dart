@@ -17,7 +17,7 @@ void main() async{
   if (langu != null) {
     strings.setLang(langu);
   } else {
-    strings.setLang(Lang.francaise); // set default language - English
+    strings.setLang(Lang.english); // set default language - English
   }
   runApp(MultiProvider(
       providers: [
@@ -54,12 +54,17 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           theme: ThemeData(
               brightness: Brightness.light,
-              fontFamily: 'Axiforma'),
+              fontFamily: 'Axiforma').copyWith(appBarTheme: AppBarTheme(
+            backgroundColor: Colors.black,
+          titleTextStyle: TextStyle(color: Colors.black, fontFamily: 'Axiforma'))),
           darkTheme: ThemeData(
             scaffoldBackgroundColor:const Color(0xff000F24) ,
 
               brightness: Brightness.dark,
-              fontFamily: 'Axiforma'),
+              fontFamily: 'Axiforma').copyWith(appBarTheme: AppBarTheme(
+              backgroundColor: const Color(0xff000F24),
+              textTheme: Theme.of(context).textTheme
+          )),
           debugShowCheckedModeBanner: false,
           themeMode: currentTheme.currentTheme(),
           home: child,
