@@ -1,6 +1,6 @@
 
 
-![.](https://github.com/AbassLanre/hng9_country_info/blob/master/Screenshot_20221112_171915.png) ![.]() ![.]()
+![.](https://github.com/AbassLanre/hng9_country_info/blob/master/Screenshot_20221112_171915.png) ![.](https://github.com/AbassLanre/hng9_country_info/blob/master/Screenshot_20221112_171934.png) ![.](https://github.com/AbassLanre/hng9_country_info/blob/master/Screenshot_20221112_172004.png)
 
 
 
