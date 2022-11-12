@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(
                                       height: 24.h,
                                     ),
-                                    Text('Languages'),
+                                    Text(strings.get(17)),
                                     ListView.builder(
                                         physics: const BouncingScrollPhysics(),
                                         itemCount: Lang().langData.length,
@@ -264,31 +264,87 @@ class _HomePageState extends State<HomePage> {
                         ),
 
                         /// filter
-                        Container(
-                          height: 40.h,
-                          width: 86.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4.r),
-                              border:
-                                  Border.all(color: const Color(0xffA9B8D4))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Icon(
-                                Icons.filter_alt_outlined,
-                                size: 19.r,
-                              ),
-                              Text(
-                                strings.get(1),
-                                style: TextStyle(fontSize: 12.sp),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                            ],
+                        InkWell(
+                          onTap: () => showModalBottomSheet(
+                            backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                            context: context,
+                            builder: (context) {
+                              return SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 24.h,
+                                    ),
+                                    Text(strings.get(1)),
+                                    ListView.builder(
+                                        physics: const BouncingScrollPhysics(),
+                                        itemCount: Lang().langData.length,
+                                        shrinkWrap: true,
+                                        itemBuilder: (_, index) {
+                                          return Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 24.w,
+                                                  right: 24.w),
+                                              child: ListTile(
+                                                title: Text(Lang()
+                                                    .langData[index]
+                                                    .name!),
+                                                trailing: Radio<int>(
+                                                  activeColor: Theme.of(context)
+                                                      .primaryColor,
+                                                  value: Lang()
+                                                      .langData[index]
+                                                      .id!,
+                                                  groupValue: langVal,
+                                                  onChanged:
+                                                      (int? value) async {
+                                                    SharedPreferences prefs =
+                                                    await SharedPreferences
+                                                        .getInstance();
+                                                    setState(() {
+                                                      langVal = value!;
+                                                      prefs.setInt(
+                                                          'langu', index + 1);
+                                                      strings
+                                                          .setLang(index + 1);
+                                                    });
+                                                  },
+                                                ),
+                                              ));
+                                        }),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+
+                          child: Container(
+                            height: 40.h,
+                            width: 86.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.r),
+                                border:
+                                    Border.all(color: const Color(0xffA9B8D4))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Icon(
+                                  Icons.filter_alt_outlined,
+                                  size: 19.r,
+                                ),
+                                Text(
+                                  strings.get(1),
+                                  style: TextStyle(fontSize: 12.sp),
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
